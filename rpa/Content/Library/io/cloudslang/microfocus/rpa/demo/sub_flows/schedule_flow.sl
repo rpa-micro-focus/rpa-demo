@@ -32,10 +32,10 @@ flow:
         do:
           io.cloudslang.microfocus.rpa.central.scheduler.schedule_flow:
             - name: '${flow_name}'
-            - uuid: '${flow_uuid}'
+            - flow_uuid: '${flow_uuid}'
             - trigger_expression: '${trigger_expression}'
+            - flow_inputs: "${'{\"count\": \"%s\"}' % roi}"
             - start_date: '${date}'
-            - inputs: "${'{\"count\": \"%s\"}' % roi}"
             - time_zone: Etc/GMT
             - num_of_occurences: '${num_of_occurences}'
         publish: []
