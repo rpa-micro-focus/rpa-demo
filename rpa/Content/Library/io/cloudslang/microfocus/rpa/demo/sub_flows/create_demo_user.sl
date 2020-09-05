@@ -82,9 +82,9 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: get_token
-    - get_default_ws_id:
+    - get_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_default_ws_id: []
+          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -100,7 +100,7 @@ flow:
           - designer_token: '${token}'
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: get_default_ws_id
+          - SUCCESS: get_ws_id
     - import_cp:
         loop:
           for: cp_file in eval(cp_files)
@@ -181,7 +181,7 @@ flow:
           - SUCCESS: get_old_user_ws_id
     - get_old_user_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_default_ws_id: []
+          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -310,7 +310,7 @@ extensions:
       import_cp_failed:
         x: 783
         'y': 385
-      get_default_ws_id:
+      get_ws_id:
         x: 397
         'y': 429
       is_cp_files_given:
