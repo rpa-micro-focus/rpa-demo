@@ -35,7 +35,7 @@ flow:
             - uuid: '${flow_uuid}'
             - trigger_expression: '${trigger_expression}'
             - start_date: '${date}'
-            - inputs: "${'\"count\": \"%s\"' % roi}"
+            - inputs: "${'{\"count\": \"%s\"}' % roi}"
             - time_zone: Etc/GMT
             - num_of_occurences: '${num_of_occurences}'
         publish: []
