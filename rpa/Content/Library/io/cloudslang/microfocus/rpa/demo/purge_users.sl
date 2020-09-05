@@ -29,10 +29,10 @@ flow:
           - token
         navigate:
           - FAILURE: logout_user
-          - SUCCESS: get_default_ws_id
-    - get_default_ws_id:
+          - SUCCESS: get_ws_id
+    - get_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_default_ws_id: []
+          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -117,7 +117,7 @@ extensions:
           3b8e89c5-a18d-726a-51f4-5433099ccd6f:
             targetId: 66d13bdc-c124-cad2-f0b7-928b14bf78f7
             port: NO_MORE
-      get_default_ws_id:
+      get_ws_id:
         x: 956
         'y': 67
       logout_admin:
