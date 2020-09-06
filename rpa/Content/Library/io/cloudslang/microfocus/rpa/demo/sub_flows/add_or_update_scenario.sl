@@ -39,7 +39,7 @@ flow:
         do:
           io.cloudslang.microfocus.rpa.ssx.scenario.update_scenario:
             - token: '${token}'
-            - id: '${scenario_id}'
+            - scenario_id: '${scenario_id}'
             - category_id: '${category_id}'
             - scenario_json: '${deprocessed_scenario_json}'
         navigate:
@@ -72,9 +72,12 @@ flow:
 extensions:
   graph:
     steps:
+      get_scenario_name:
+        x: 44
+        'y': 159
       add_scenario:
         x: 212
-        'y': 146
+        'y': 145
         navigate:
           592cc9d4-ee39-7417-3181-c00079bd5584:
             targetId: 95dfb3ec-a5cd-6574-d06a-da1e85b158de
@@ -86,9 +89,6 @@ extensions:
           e877669a-5b0b-3174-01d3-fc4ab422656a:
             targetId: 95dfb3ec-a5cd-6574-d06a-da1e85b158de
             port: SUCCESS
-      get_scenario_name:
-        x: 44
-        'y': 159
       get_scenario_id:
         x: 43
         'y': 370

@@ -31,11 +31,11 @@ flow:
           - SUCCESS: json_path_query
     - delete_category:
         loop:
-          for: id in category_ids
+          for: category_id in category_ids
           do:
             io.cloudslang.microfocus.rpa.ssx.category.delete_category:
               - token: '${token}'
-              - id: '${id}'
+              - category_id: '${category_id}'
           break:
             - FAILURE
         navigate:

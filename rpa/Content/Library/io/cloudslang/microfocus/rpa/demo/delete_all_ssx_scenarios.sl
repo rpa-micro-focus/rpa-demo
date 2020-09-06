@@ -31,11 +31,11 @@ flow:
           - FAILURE: on_failure
     - delete_scenario:
         loop:
-          for: id in scenario_ids
+          for: scenario_id in scenario_ids
           do:
             io.cloudslang.microfocus.rpa.ssx.scenario.delete_scenario:
               - token: '${token}'
-              - id: '${id}'
+              - scenario_id: '${scenario_id}'
           break:
             - FAILURE
         navigate:
@@ -47,15 +47,15 @@ flow:
 extensions:
   graph:
     steps:
+      get_token:
+        x: 44
+        'y': 118
       get_scenarios:
         x: 201
         'y': 117
       json_path_query:
         x: 357
         'y': 123
-      get_token:
-        x: 44
-        'y': 118
       delete_scenario:
         x: 518
         'y': 126

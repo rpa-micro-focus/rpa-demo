@@ -34,7 +34,7 @@ flow:
             - token: '${token}'
             - category_json: "${str(category_json).replace(\"'__NULL__'\", \"null\").replace(\"'\", '\"')}"
         publish:
-          - category_id: '${id}'
+          - category_id
         navigate:
           - FAILURE: on_failure
           - SUCCESS: contains_scenarios
@@ -61,7 +61,7 @@ flow:
         do:
           io.cloudslang.microfocus.rpa.ssx.category.update_category:
             - token: '${token}'
-            - id: '${category_id}'
+            - category_id: '${category_id}'
             - category_json: '${deprocessed_category_json}'
         navigate:
           - FAILURE: on_failure
@@ -93,16 +93,12 @@ flow:
 extensions:
   graph:
     steps:
+      get_category_name:
+        x: 39
+        'y': 114
       add_category:
         x: 198
         'y': 114
-      add_or_update_scenario:
-        x: 669
-        'y': 114
-        navigate:
-          93b34fcd-e64d-b5a6-b955-f21458d8a433:
-            targetId: 0a81956d-2507-67c0-0e04-41125d70c11e
-            port: SUCCESS
       contains_scenarios:
         x: 419
         'y': 115
@@ -110,15 +106,19 @@ extensions:
           44f0ecc5-0662-63aa-4995-900cc994e015:
             targetId: 0a81956d-2507-67c0-0e04-41125d70c11e
             port: 'FALSE'
-      get_category_name:
-        x: 39
-        'y': 114
-      update_category:
-        x: 420
-        'y': 307
       get_category_id:
         x: 43
         'y': 308
+      update_category:
+        x: 420
+        'y': 307
+      add_or_update_scenario:
+        x: 669
+        'y': 114
+        navigate:
+          93b34fcd-e64d-b5a6-b955-f21458d8a433:
+            targetId: 0a81956d-2507-67c0-0e04-41125d70c11e
+            port: SUCCESS
       category_exists:
         x: 199
         'y': 307
