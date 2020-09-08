@@ -113,7 +113,6 @@ flow:
             - FAILURE
           publish:
             - cp_status_json: '${status_json}'
-            - failure: ''
         navigate:
           - FAILURE: import_cp_failed
           - SUCCESS: is_repo_given
@@ -157,7 +156,9 @@ flow:
     - is_cp_files_given:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(cp_files) > 0)}'
+            - bool_value: '${str(len(eval(cp_files)) > 0)}'
+        publish:
+          - failure: ''
         navigate:
           - 'TRUE': import_cp
           - 'FALSE': is_repo_given
@@ -279,6 +280,9 @@ extensions:
       get_old_user_token:
         x: 66
         'y': 162
+      import_cp:
+        x: 621
+        'y': 386
       add_user:
         x: 7
         'y': 587
@@ -325,9 +329,6 @@ extensions:
       reset_user:
         x: 302
         'y': 71
-      import_cp:
-        x: 621
-        'y': 386
       delete_user:
         x: 244
         'y': 461
