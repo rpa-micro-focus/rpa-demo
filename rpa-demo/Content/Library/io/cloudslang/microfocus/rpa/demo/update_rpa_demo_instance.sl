@@ -15,7 +15,7 @@ flow:
     - roi_range: 5-20
     - cp_folder: "C:\\\\Users\\\\Administrator\\\\Downloads\\\\demo-content-packs"
     - github_repos: 'pe-pan/rpa-aos,pe-pan/rpa-sap,pe-pan/rpa-salesforce,rpa-micro-focus/rpa-microsoft-graph,rpa-micro-focus/cs-base-te-addon,rpa-micro-focus/rpa-rpa,rpa-micro-focus/rpa-demo,rpa-micro-focus/rpa-demo-updater,rpa-micro-focus/cs-microfocus-enterprise-server'
-    - usernames: 'aosdev,sapdev,sfdev,rpadev,rpademo,rpaqa,addondev,addonqa,esdev'
+    - usernames: 'admin,aosdev,sapdev,sfdev,rpadev,rpademo,rpaqa,addondev,addonqa,esdev'
   workflow:
     - generate_roi_numbers:
         do:
