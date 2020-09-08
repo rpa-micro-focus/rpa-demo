@@ -17,13 +17,6 @@ flow:
     - github_repos: 'pe-pan/rpa-aos,pe-pan/rpa-sap,pe-pan/rpa-salesforce,rpa-micro-focus/rpa-microsoft-graph,rpa-micro-focus/cs-base-te-addon,rpa-micro-focus/rpa-rpa,rpa-micro-focus/rpa-demo,rpa-micro-focus/rpa-demo-updater,rpa-micro-focus/cs-microfocus-enterprise-server'
     - usernames: 'aosdev,sapdev,sfdev,rpadev,rpademo,rpaqa,addondev,addonqa,esdev'
   workflow:
-    - is_true:
-        do:
-          io.cloudslang.base.utils.is_true:
-            - bool_value: 'false'
-        navigate:
-          - 'TRUE': generate_roi_numbers
-          - 'FALSE': update_cp_from_github
     - generate_roi_numbers:
         do:
           io.cloudslang.microfocus.rpa.demo.generate_roi_numbers:
@@ -75,9 +68,6 @@ extensions:
           f1f56ab3-e8b0-a138-d75e-38a48180f782:
             targetId: 79615ce1-e9d4-4686-6566-2e5cf0b3f543
             port: SUCCESS
-      is_true:
-        x: 206
-        'y': 295
     results:
       SUCCESS:
         79615ce1-e9d4-4686-6566-2e5cf0b3f543:
