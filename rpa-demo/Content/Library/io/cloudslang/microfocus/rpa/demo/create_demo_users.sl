@@ -27,7 +27,7 @@ flow:
         default: OO_AGR_
         required: true
     - reset_user:
-        default: 'true'
+        default: 'false'
         required: true
   workflow:
     - get_token:
