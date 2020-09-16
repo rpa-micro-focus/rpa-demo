@@ -1,7 +1,7 @@
 ########################################################################################################################
 ########################################################################################################################
 #!!
-#! @description: Creates a user and setups her workspace; it deploys CPs into dependencies and imports the GitHub repository
+#! @description: Creates a user and setups her workspace; it deploys CPs into dependencies (unassigns the old ones first) and imports the GitHub repository
 #!
 #! @input token: IDM token
 #! @input ws_user: Which user to create
@@ -10,7 +10,7 @@
 #! @input org_id: RPA tenant ID the newly user will belong to
 #! @input group_id: IDM group the user will belong to; if empty; the user will not be assigned anywhere
 #! @input repre_name: Representation name
-#! @input cp_files: List of full path to CPs to be deployed into the user workspace
+#! @input cp_files: List of full path to CPs to be deployed into the user workspace; if not empty, the currently assigned CPs will be unassigned first
 #! @input github_repo: GitHub repo owner/name
 #! @input update_binaries: If yes, the latest release will be downloaded to the workspace dependencies and then removed
 #! @input cp_folder: Folder where CPs are to be stored (when being downloaded from GitHub)
@@ -160,7 +160,7 @@ flow:
         publish:
           - failure: ''
         navigate:
-          - 'TRUE': import_cp
+          - 'TRUE': unassign_user_cps
           - 'FALSE': is_repo_given
     - is_repo_given:
         do:
@@ -247,6 +247,14 @@ flow:
         navigate:
           - SUCCESS: logout
           - FAILURE: import_scm_failed
+    - unassign_user_cps:
+        do:
+          io.cloudslang.microfocus.rpa.demo.sub_flows.unassign_user_cps:
+            - token: '${token}'
+            - ws_id: '${ws_id}'
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: import_cp
     - on_failure:
         - logout_on_failure:
             do:
@@ -286,6 +294,9 @@ extensions:
       add_user:
         x: 7
         'y': 587
+      unassign_user_cps:
+        x: 614
+        'y': 206
       logout:
         x: 925
         'y': 208
