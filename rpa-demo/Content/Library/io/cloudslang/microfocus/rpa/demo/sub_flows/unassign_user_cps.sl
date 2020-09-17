@@ -40,7 +40,7 @@ flow:
     - is_any_cp_assigned:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(cp_ids))}'
+            - bool_value: '${str(len(cp_ids)>0)}'
         navigate:
           - 'TRUE': unassign_cp
           - 'FALSE': SUCCESS
@@ -50,19 +50,9 @@ flow:
 extensions:
   graph:
     steps:
-      is_any_cp_assigned:
-        x: 423
-        'y': 78
-        navigate:
-          18a4e52c-4ec1-5f89-daac-4d38ec112ab6:
-            targetId: 5d365ffe-9281-8c41-d5d5-c14af3987009
-            port: 'FALSE'
       get_assigned_cps:
         x: 39
         'y': 76
-      json_path_query:
-        x: 213
-        'y': 77
       unassign_cp:
         x: 618
         'y': 80
@@ -70,6 +60,16 @@ extensions:
           d6be61fd-3ca7-c12d-cda8-b2ceffd6bc97:
             targetId: 5d365ffe-9281-8c41-d5d5-c14af3987009
             port: SUCCESS
+      json_path_query:
+        x: 213
+        'y': 77
+      is_any_cp_assigned:
+        x: 423
+        'y': 78
+        navigate:
+          18a4e52c-4ec1-5f89-daac-4d38ec112ab6:
+            targetId: 5d365ffe-9281-8c41-d5d5-c14af3987009
+            port: 'FALSE'
     results:
       SUCCESS:
         5d365ffe-9281-8c41-d5d5-c14af3987009:

@@ -67,7 +67,7 @@ flow:
             - org_id: '${org_id}'
         publish:
           - user_json
-          - user_id: "${eval(user_json)['abstractUserId']}"
+          - user_id: "${eval(user_json.replace(\":null\",\":None\").replace(\":true\",\":True\").replace(\":false\",\":False\"))['abstractUserId']}"
         navigate:
           - FAILURE: on_failure
           - SUCCESS: assign_users
@@ -140,7 +140,7 @@ flow:
             - ignore_case: 'true'
             - user_json: '${user_json}'
         publish:
-          - user_id: "${eval(user_json)['id']}"
+          - user_id: "${eval(user_json.replace(\":null\",\":None\").replace(\":true\",\":True\").replace(\":false\",\":False\"))['id']}"
         navigate:
           - SUCCESS: get_old_user_token
           - FAILURE: assign_users
@@ -250,7 +250,7 @@ flow:
     - unassign_user_cps:
         do:
           io.cloudslang.microfocus.rpa.demo.sub_flows.unassign_user_cps:
-            - token: '${token}'
+            - token: '${designer_token}'
             - ws_id: '${ws_id}'
         navigate:
           - FAILURE: on_failure
