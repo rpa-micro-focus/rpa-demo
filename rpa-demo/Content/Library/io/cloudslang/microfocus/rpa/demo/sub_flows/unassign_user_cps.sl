@@ -35,15 +35,15 @@ flow:
         publish:
           - cp_ids: '${return_result}'
         navigate:
-          - SUCCESS: is_any_cp_assigned
+          - SUCCESS: no_cp_assigned
           - FAILURE: on_failure
-    - is_any_cp_assigned:
+    - no_cp_assigned:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(cp_ids)>0)}'
+            - bool_value: "${str(cp_ids == '[]')}"
         navigate:
-          - 'TRUE': unassign_cp
-          - 'FALSE': SUCCESS
+          - 'TRUE': SUCCESS
+          - 'FALSE': unassign_cp
   results:
     - FAILURE
     - SUCCESS
@@ -63,13 +63,13 @@ extensions:
       json_path_query:
         x: 213
         'y': 77
-      is_any_cp_assigned:
+      no_cp_assigned:
         x: 423
         'y': 78
         navigate:
-          18a4e52c-4ec1-5f89-daac-4d38ec112ab6:
+          70c0d3a9-38ab-3aca-3c0e-d1f578b30376:
             targetId: 5d365ffe-9281-8c41-d5d5-c14af3987009
-            port: 'FALSE'
+            port: 'TRUE'
     results:
       SUCCESS:
         5d365ffe-9281-8c41-d5d5-c14af3987009:
