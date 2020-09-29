@@ -33,6 +33,7 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: logout
+          - NO_SCM_REPOSITORY: logout
     - logout:
         do:
           io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
