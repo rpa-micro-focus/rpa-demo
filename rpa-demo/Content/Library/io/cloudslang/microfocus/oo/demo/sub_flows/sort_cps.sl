@@ -7,7 +7,7 @@
 #! @input last: List of CP names to be deployed as the last ones; do not use brackets, use only CP names (no versions, no spaces); cp1,cp2,cp3
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 operation:
   name: sort_cps
   inputs:

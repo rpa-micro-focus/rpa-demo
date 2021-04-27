@@ -1,10 +1,10 @@
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: delete_all_ssx_scenarios
   workflow:
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.ssx.authenticate.get_token: []
+          io.cloudslang.microfocus.oo.ssx.authenticate.get_token: []
         publish:
           - token
         navigate:
@@ -12,7 +12,7 @@ flow:
           - SUCCESS: get_scenarios
     - get_scenarios:
         do:
-          io.cloudslang.microfocus.rpa.ssx.scenario.get_scenarios:
+          io.cloudslang.microfocus.oo.ssx.scenario.get_scenarios:
             - token: '${token}'
         publish:
           - scenarios_json
@@ -33,7 +33,7 @@ flow:
         loop:
           for: scenario_id in scenario_ids
           do:
-            io.cloudslang.microfocus.rpa.ssx.scenario.delete_scenario:
+            io.cloudslang.microfocus.oo.ssx.scenario.delete_scenario:
               - token: '${token}'
               - scenario_id: '${scenario_id}'
           break:

@@ -3,13 +3,13 @@
 #! @description: Deletes the password lock policy that is assigned for idm_tenant organization (if any). It fails if there is no such policy.
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: delete_password_lock_policy
   workflow:
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.idm.authenticate.get_token: []
+          io.cloudslang.microfocus.oo.idm.authenticate.get_token: []
         publish:
           - token
         navigate:
@@ -17,9 +17,9 @@ flow:
           - SUCCESS: get_organization_id
     - get_organization_id:
         do:
-          io.cloudslang.microfocus.rpa.idm.organization.get_organization_id:
+          io.cloudslang.microfocus.oo.idm.organization.get_organization_id:
             - token: '${token}'
-            - org_name: "${get_sp('io.cloudslang.microfocus.rpa.idm_tenant')}"
+            - org_name: "${get_sp('io.cloudslang.microfocus.oo.idm_tenant')}"
         publish:
           - org_id
         navigate:
@@ -27,7 +27,7 @@ flow:
           - FAILURE: on_failure
     - get_policy_id:
         do:
-          io.cloudslang.microfocus.rpa.idm.policy.get_policy_id:
+          io.cloudslang.microfocus.oo.idm.policy.get_policy_id:
             - token: '${token}'
             - org_id: '${org_id}'
         publish:
@@ -37,7 +37,7 @@ flow:
           - FAILURE: on_failure
     - delete_policy:
         do:
-          io.cloudslang.microfocus.rpa.idm.policy.delete_policy:
+          io.cloudslang.microfocus.oo.idm.policy.delete_policy:
             - token: '${token}'
             - org_id: '${org_id}'
             - policy_id: '${policy_id}'

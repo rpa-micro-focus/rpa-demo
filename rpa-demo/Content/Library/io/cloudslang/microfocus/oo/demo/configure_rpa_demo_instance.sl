@@ -11,19 +11,19 @@
 #!               - schedules flows to generate ROI in Dashboard
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: configure_rpa_demo_instance
   workflow:
     - deploy_cps:
         do:
-          io.cloudslang.microfocus.rpa.demo.deploy_cps: []
+          io.cloudslang.microfocus.oo.demo.deploy_cps: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: set_insight_settings
     - set_insight_settings:
         do:
-          io.cloudslang.microfocus.rpa.central.insight.set_insight_settings:
+          io.cloudslang.microfocus.oo.central.insight.set_insight_settings:
             - settings: 'host,port,dbConfiguration.dbType,dbConfiguration.host,dbConfiguration.port,dbConfiguration.username,dbConfiguration.password,dbConfiguration.dbName,dbConfiguration.passwordChanged'
             - values: 'rpa.mf-te.com,8458,POSTGRESQL,rpa.mf-te.com,5432,insight,Cloud@123,insight,true'
         navigate:
@@ -31,7 +31,7 @@ flow:
           - SUCCESS: enable_insight_service
     - set_general_settings:
         do:
-          io.cloudslang.microfocus.rpa.central.settings.set_general_settings:
+          io.cloudslang.microfocus.oo.central.settings.set_general_settings:
             - settings: isUseEmptyPromptForInputs
             - values: 'true'
         navigate:
@@ -39,19 +39,19 @@ flow:
           - SUCCESS: set_cp_settings
     - generate_roi_numbers:
         do:
-          io.cloudslang.microfocus.rpa.demo.generate_roi_numbers: []
+          io.cloudslang.microfocus.oo.demo.generate_roi_numbers: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
     - delete_password_lock_policy:
         do:
-          io.cloudslang.microfocus.rpa.demo.delete_password_lock_policy: []
+          io.cloudslang.microfocus.oo.demo.delete_password_lock_policy: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: set_sso_expiration_time
     - set_cp_settings:
         do:
-          io.cloudslang.microfocus.rpa.central.settings.set_cp_settings:
+          io.cloudslang.microfocus.oo.central.settings.set_cp_settings:
             - settings: 'cpStatisticsJobEnabled,cpExport'
             - values: 'true,true'
         navigate:
@@ -59,25 +59,25 @@ flow:
           - SUCCESS: delete_password_lock_policy
     - enable_insight_service:
         do:
-          io.cloudslang.microfocus.rpa.central.insight.enable_insight_service: []
+          io.cloudslang.microfocus.oo.central.insight.enable_insight_service: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: set_general_settings
     - set_sso_expiration_time:
         do:
-          io.cloudslang.microfocus.rpa.demo.set_sso_expiration_time: []
+          io.cloudslang.microfocus.oo.demo.set_sso_expiration_time: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: update_ssx_categories_and_scenarios
     - update_ssx_categories_and_scenarios:
         do:
-          io.cloudslang.microfocus.rpa.demo.update_ssx_categories_and_scenarios: []
+          io.cloudslang.microfocus.oo.demo.update_ssx_categories_and_scenarios: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: create_demo_users
     - create_demo_users:
         do:
-          io.cloudslang.microfocus.rpa.demo.create_demo_users: []
+          io.cloudslang.microfocus.oo.demo.create_demo_users: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: generate_roi_numbers

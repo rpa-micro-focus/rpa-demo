@@ -6,7 +6,7 @@
 #!               - updates workspaces of demo users (updates RPA activies + pulls changes in SCM repositories)
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: update_rpa_demo_instance
   inputs:
@@ -19,7 +19,7 @@ flow:
   workflow:
     - generate_roi_numbers:
         do:
-          io.cloudslang.microfocus.rpa.demo.generate_roi_numbers:
+          io.cloudslang.microfocus.oo.demo.generate_roi_numbers:
             - path: '${roi_path}'
             - num_of_occurences_range: '${roi_number_of_occurences_range}'
             - roi_range: '${roi_range}'
@@ -30,7 +30,7 @@ flow:
         loop:
           for: github_repo in github_repos
           do:
-            io.cloudslang.microfocus.rpa.central.content-pack.update_cp_from_github:
+            io.cloudslang.microfocus.oo.central.content-pack.update_cp_from_github:
               - github_repo: '${github_repo}'
               - cp_folder: '${cp_folder}'
           break: []
@@ -43,7 +43,7 @@ flow:
         loop:
           for: username in usernames
           do:
-            io.cloudslang.microfocus.rpa.demo.sub_flows.update_workspace:
+            io.cloudslang.microfocus.oo.demo.sub_flows.update_workspace:
               - username: '${username}'
           break: []
         navigate:

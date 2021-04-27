@@ -10,7 +10,7 @@
 #! @input reset_user: If true, the user's account (if exists) will get removed including user's workspace; there is no way to recover
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: create_demo_users
   inputs:
@@ -32,7 +32,7 @@ flow:
   workflow:
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.idm.authenticate.get_token: []
+          io.cloudslang.microfocus.oo.idm.authenticate.get_token: []
         publish:
           - token
         navigate:
@@ -40,9 +40,9 @@ flow:
           - SUCCESS: get_organization_id
     - get_organization_id:
         do:
-          io.cloudslang.microfocus.rpa.idm.organization.get_organization_id:
+          io.cloudslang.microfocus.oo.idm.organization.get_organization_id:
             - token: '${token}'
-            - org_name: "${get('org_name', get_sp('io.cloudslang.microfocus.rpa.idm_tenant'))}"
+            - org_name: "${get('org_name', get_sp('io.cloudslang.microfocus.oo.idm_tenant'))}"
         publish:
           - org_id
         navigate:
@@ -52,13 +52,13 @@ flow:
         loop:
           for: "user_json in eval(users_json)['users']"
           do:
-            io.cloudslang.microfocus.rpa.demo.sub_flows.create_demo_user:
+            io.cloudslang.microfocus.oo.demo.sub_flows.create_demo_user:
               - token: '${token}'
               - ws_user: "${user_json['user']}"
               - ws_password:
-                  value: "${get('users_password', get_sp('io.cloudslang.microfocus.rpa.rpa_password'))}"
+                  value: "${get('users_password', get_sp('io.cloudslang.microfocus.oo.oo_password'))}"
                   sensitive: true
-              - ws_tenant: "${get('org_name', get_sp('io.cloudslang.microfocus.rpa.idm_tenant'))}"
+              - ws_tenant: "${get('org_name', get_sp('io.cloudslang.microfocus.oo.idm_tenant'))}"
               - org_id: '${org_id}'
               - group_id: '${group_id}'
               - repre_name: '${repre_prefix+group_name}'
@@ -80,7 +80,7 @@ flow:
           - INCOMPLETE: SUCCESS
     - get_group_id:
         do:
-          io.cloudslang.microfocus.rpa.idm.group.get_group_id:
+          io.cloudslang.microfocus.oo.idm.group.get_group_id:
             - token: '${token}'
             - org_id: '${org_id}'
             - group_name: '${group_name}'

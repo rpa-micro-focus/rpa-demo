@@ -1,4 +1,4 @@
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 flow:
   name: unassign_user_cps
   inputs:
@@ -7,7 +7,7 @@ flow:
   workflow:
     - get_assigned_cps:
         do:
-          io.cloudslang.microfocus.rpa.designer.content-pack.get_assigned_cps:
+          io.cloudslang.microfocus.oo.designer.content-pack.get_assigned_cps:
             - ws_id: '${ws_id}'
         publish:
           - cps_json
@@ -18,7 +18,7 @@ flow:
         loop:
           for: cp_id in eval(cp_ids)
           do:
-            io.cloudslang.microfocus.rpa.designer.content-pack.unassign_cp:
+            io.cloudslang.microfocus.oo.designer.content-pack.unassign_cp:
               - token: '${token}'
               - ws_id: '${ws_id}'
               - cp_id: '${cp_id}'

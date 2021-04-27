@@ -1,4 +1,4 @@
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 flow:
   name: schedule_flow
   inputs:
@@ -30,7 +30,7 @@ flow:
           - FAILURE: on_failure
     - schedule_flow:
         do:
-          io.cloudslang.microfocus.rpa.central.scheduler.schedule_flow:
+          io.cloudslang.microfocus.oo.central.scheduler.schedule_flow:
             - name: '${flow_name}'
             - flow_uuid: '${flow_uuid}'
             - trigger_expression: '${trigger_expression}'

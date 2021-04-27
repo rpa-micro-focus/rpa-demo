@@ -1,4 +1,4 @@
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 flow:
   name: update_workspace
   inputs:
@@ -6,7 +6,7 @@ flow:
   workflow:
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.get_token:
+          io.cloudslang.microfocus.oo.designer.authenticate.get_token:
             - ws_user: '${username}'
         publish:
           - token
@@ -15,7 +15,7 @@ flow:
           - SUCCESS: get_ws_id
     - get_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
+          io.cloudslang.microfocus.oo.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -23,7 +23,7 @@ flow:
           - SUCCESS: update_workspace
     - update_workspace:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.update_workspace:
+          io.cloudslang.microfocus.oo.designer.workspace.update_workspace:
             - token: '${token}'
             - ws_id: '${ws_id}'
         publish:
@@ -36,13 +36,13 @@ flow:
           - NO_SCM_REPOSITORY: logout
     - logout:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
+          io.cloudslang.microfocus.oo.designer.authenticate.logout: []
         navigate:
           - SUCCESS: SUCCESS
     - on_failure:
         - logout_failure:
             do:
-              io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
+              io.cloudslang.microfocus.oo.designer.authenticate.logout: []
   results:
     - FAILURE
     - SUCCESS

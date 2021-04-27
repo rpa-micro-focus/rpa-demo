@@ -5,7 +5,7 @@
 #! @input timeout: For how long the SSO token should be valid (in minutes)
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: set_sso_expiration_time
   inputs:
@@ -13,7 +13,7 @@ flow:
   workflow:
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.idm.authenticate.get_token: []
+          io.cloudslang.microfocus.oo.idm.authenticate.get_token: []
         publish:
           - token
         navigate:
@@ -21,7 +21,7 @@ flow:
           - SUCCESS: set_sso_expiration_period
     - set_sso_expiration_period:
         do:
-          io.cloudslang.microfocus.rpa.idm.configuration.set_property:
+          io.cloudslang.microfocus.oo.idm.configuration.set_property:
             - token: '${token}'
             - property_name: lwssoConfig.expirationPeriod
             - property_value: '${timeout}'
@@ -30,7 +30,7 @@ flow:
           - SUCCESS: set_idm_token_lifetime
     - set_idm_token_lifetime:
         do:
-          io.cloudslang.microfocus.rpa.idm.configuration.set_property:
+          io.cloudslang.microfocus.oo.idm.configuration.set_property:
             - token: '${token}'
             - property_name: idm.token.lifetime.minutes
             - property_value: '${timeout}'

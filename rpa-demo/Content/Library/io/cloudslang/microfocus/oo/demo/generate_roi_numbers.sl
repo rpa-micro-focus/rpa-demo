@@ -8,7 +8,7 @@
 #! @input roi_range: Return On Investment for each flow; provide a range of min-max value; each flow will get a random ROI in the range
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: generate_roi_numbers
   inputs:
@@ -19,7 +19,7 @@ flow:
   workflow:
     - get_flows:
         do:
-          io.cloudslang.microfocus.rpa.central.library.get_flows:
+          io.cloudslang.microfocus.oo.central.library.get_flows:
             - path: '${path}'
         publish:
           - flows_json
@@ -40,7 +40,7 @@ flow:
         loop:
           for: flow_id in flow_ids
           do:
-            io.cloudslang.microfocus.rpa.demo.sub_flows.schedule_flow:
+            io.cloudslang.microfocus.oo.demo.sub_flows.schedule_flow:
               - flows_json: '${flows_json}'
               - flow_uuid: '${flow_id[1:-1]}'
               - trigger_expression: '${trigger_expression}'

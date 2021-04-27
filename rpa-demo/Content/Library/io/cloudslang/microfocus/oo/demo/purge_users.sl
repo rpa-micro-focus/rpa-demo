@@ -5,7 +5,7 @@
 #! @input usernames: List of users to be purged
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: purge_users
   inputs:
@@ -23,7 +23,7 @@ flow:
           - FAILURE: on_failure
     - get_user_token:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.get_token:
+          io.cloudslang.microfocus.oo.designer.authenticate.get_token:
             - ws_user: '${username}'
         publish:
           - token
@@ -32,7 +32,7 @@ flow:
           - SUCCESS: get_ws_id
     - get_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
+          io.cloudslang.microfocus.oo.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -40,7 +40,7 @@ flow:
           - SUCCESS: is_workspace
     - delete_workspace:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.delete_workspace:
+          io.cloudslang.microfocus.oo.designer.workspace.delete_workspace:
             - token: '${token}'
             - ws_id: '${ws_id}'
         navigate:
@@ -48,7 +48,7 @@ flow:
           - SUCCESS: logout_user
     - delete_user:
         do:
-          io.cloudslang.microfocus.rpa.idm.user.delete_user:
+          io.cloudslang.microfocus.oo.idm.user.delete_user:
             - token: '${idm_token}'
             - username_or_id: '${username}'
             - org_id: '${org_id}'
@@ -57,7 +57,7 @@ flow:
           - SUCCESS: logout_admin
     - get_organization_id:
         do:
-          io.cloudslang.microfocus.rpa.idm.organization.get_organization_id:
+          io.cloudslang.microfocus.oo.idm.organization.get_organization_id:
             - token: '${idm_token}'
         publish:
           - org_id
@@ -66,7 +66,7 @@ flow:
           - FAILURE: logout_admin
     - logout_user:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
+          io.cloudslang.microfocus.oo.designer.authenticate.logout: []
         navigate:
           - SUCCESS: get_admin_token
     - is_workspace:
@@ -78,7 +78,7 @@ flow:
           - 'FALSE': logout_user
     - get_admin_token:
         do:
-          io.cloudslang.microfocus.rpa.idm.authenticate.get_token: []
+          io.cloudslang.microfocus.oo.idm.authenticate.get_token: []
         publish:
           - idm_token: '${token}'
         navigate:
@@ -86,7 +86,7 @@ flow:
           - SUCCESS: get_organization_id
     - logout_admin:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
+          io.cloudslang.microfocus.oo.designer.authenticate.logout: []
         navigate:
           - SUCCESS: list_iterator
   results:

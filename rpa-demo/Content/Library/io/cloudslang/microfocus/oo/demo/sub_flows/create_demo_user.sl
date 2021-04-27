@@ -21,7 +21,7 @@
 #! @output failure: Empty if no error appeared; will contain what has failed otherwise
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 flow:
   name: create_demo_user
   inputs:
@@ -49,7 +49,7 @@ flow:
   workflow:
     - get_user:
         do:
-          io.cloudslang.microfocus.rpa.idm.user.get_user:
+          io.cloudslang.microfocus.oo.idm.user.get_user:
             - token: '${token}'
             - username_or_id: '${ws_user}'
             - org_id: '${org_id}'
@@ -60,10 +60,10 @@ flow:
           - SUCCESS: reset_user
     - add_user:
         do:
-          io.cloudslang.microfocus.rpa.idm.user.add_user:
+          io.cloudslang.microfocus.oo.idm.user.add_user:
             - token: '${token}'
             - username: '${ws_user}'
-            - password: "${get('ws_password', get_sp('io.cloudslang.microfocus.rpa.rpa_password'))}"
+            - password: "${get('ws_password', get_sp('io.cloudslang.microfocus.oo.oo_password'))}"
             - org_id: '${org_id}'
         publish:
           - user_json
@@ -73,7 +73,7 @@ flow:
           - SUCCESS: assign_users
     - assign_users:
         do:
-          io.cloudslang.microfocus.rpa.idm.representation.assign_users:
+          io.cloudslang.microfocus.oo.idm.representation.assign_users:
             - token: '${token}'
             - org_id: '${org_id}'
             - group_id: '${group_id}'
@@ -84,7 +84,7 @@ flow:
           - SUCCESS: get_token
     - get_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
+          io.cloudslang.microfocus.oo.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -92,10 +92,10 @@ flow:
           - SUCCESS: no_ws_yet
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.get_token:
+          io.cloudslang.microfocus.oo.designer.authenticate.get_token:
             - ws_user: '${ws_user}'
-            - ws_password: "${get('ws_password', get_sp('io.cloudslang.microfocus.rpa.rpa_password'))}"
-            - ws_tenant: "${get('ws_tenant', get_sp('io.cloudslang.microfocus.rpa.idm_tenant'))}"
+            - ws_password: "${get('ws_password', get_sp('io.cloudslang.microfocus.oo.oo_password'))}"
+            - ws_tenant: "${get('ws_tenant', get_sp('io.cloudslang.microfocus.oo.idm_tenant'))}"
         publish:
           - designer_token: '${token}'
         navigate:
@@ -105,7 +105,7 @@ flow:
         loop:
           for: cp_file in eval(cp_files)
           do:
-            io.cloudslang.microfocus.rpa.designer.content-pack.import_cp:
+            io.cloudslang.microfocus.oo.designer.content-pack.import_cp:
               - token: '${designer_token}'
               - cp_file: '${cp_file}'
               - ws_id: '${ws_id}'
@@ -125,7 +125,7 @@ flow:
           - 'FALSE': is_cp_files_given
     - create_workspace:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.create_workspace:
+          io.cloudslang.microfocus.oo.designer.workspace.create_workspace:
             - token: '${designer_token}'
         publish:
           - ws_id
@@ -146,7 +146,7 @@ flow:
           - FAILURE: assign_users
     - delete_user:
         do:
-          io.cloudslang.microfocus.rpa.idm.user.delete_user:
+          io.cloudslang.microfocus.oo.idm.user.delete_user:
             - token: '${token}'
             - username_or_id: '${ws_user}'
             - org_id: '${org_id}'
@@ -171,10 +171,10 @@ flow:
           - 'FALSE': logout
     - get_old_user_token:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.get_token:
+          io.cloudslang.microfocus.oo.designer.authenticate.get_token:
             - ws_user: '${ws_user}'
-            - ws_password: "${get('ws_password', get_sp('io.cloudslang.microfocus.rpa.rpa_password'))}"
-            - ws_tenant: "${get('ws_tenant', get_sp('io.cloudslang.microfocus.rpa.idm_tenant'))}"
+            - ws_password: "${get('ws_password', get_sp('io.cloudslang.microfocus.oo.oo_password'))}"
+            - ws_tenant: "${get('ws_tenant', get_sp('io.cloudslang.microfocus.oo.idm_tenant'))}"
         publish:
           - designer_token: '${token}'
         navigate:
@@ -182,7 +182,7 @@ flow:
           - SUCCESS: get_old_user_ws_id
     - get_old_user_ws_id:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.get_ws_id: []
+          io.cloudslang.microfocus.oo.designer.workspace.get_ws_id: []
         publish:
           - ws_id
         navigate:
@@ -190,7 +190,7 @@ flow:
           - SUCCESS: has_ws
     - delete_workspace:
         do:
-          io.cloudslang.microfocus.rpa.designer.workspace.delete_workspace:
+          io.cloudslang.microfocus.oo.designer.workspace.delete_workspace:
             - token: '${designer_token}'
             - ws_id: '${ws_id}'
         navigate:
@@ -217,7 +217,7 @@ flow:
           - FAILURE: on_failure
     - logout:
         do:
-          io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
+          io.cloudslang.microfocus.oo.designer.authenticate.logout: []
         navigate:
           - SUCCESS: has_any_failure
     - has_ws:
@@ -236,7 +236,7 @@ flow:
           - 'FALSE': SUCCESS
     - init_repo:
         do:
-          io.cloudslang.microfocus.rpa.designer.repository.init_repo:
+          io.cloudslang.microfocus.oo.designer.repository.init_repo:
             - token: '${designer_token}'
             - ws_id: '${ws_id}'
             - github_repo: '${github_repo}'
@@ -249,7 +249,7 @@ flow:
           - FAILURE: import_scm_failed
     - unassign_user_cps:
         do:
-          io.cloudslang.microfocus.rpa.demo.sub_flows.unassign_user_cps:
+          io.cloudslang.microfocus.oo.demo.sub_flows.unassign_user_cps:
             - token: '${designer_token}'
             - ws_id: '${ws_id}'
         navigate:
@@ -258,7 +258,7 @@ flow:
     - on_failure:
         - logout_on_failure:
             do:
-              io.cloudslang.microfocus.rpa.designer.authenticate.logout: []
+              io.cloudslang.microfocus.oo.designer.authenticate.logout: []
   outputs:
     - cp_status_json: '${cp_status_json}'
     - repo_status_json: '${repo_status_json}'

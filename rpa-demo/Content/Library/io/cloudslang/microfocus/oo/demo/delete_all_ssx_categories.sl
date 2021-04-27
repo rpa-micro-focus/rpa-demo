@@ -1,10 +1,10 @@
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: delete_all_ssx_categories
   workflow:
     - get_token:
         do:
-          io.cloudslang.microfocus.rpa.ssx.authenticate.get_token: []
+          io.cloudslang.microfocus.oo.ssx.authenticate.get_token: []
         publish:
           - token
         navigate:
@@ -22,7 +22,7 @@ flow:
           - FAILURE: on_failure
     - get_categories:
         do:
-          io.cloudslang.microfocus.rpa.ssx.category.get_categories:
+          io.cloudslang.microfocus.oo.ssx.category.get_categories:
             - token: '${token}'
         publish:
           - categories_json
@@ -33,7 +33,7 @@ flow:
         loop:
           for: category_id in category_ids
           do:
-            io.cloudslang.microfocus.rpa.ssx.category.delete_category:
+            io.cloudslang.microfocus.oo.ssx.category.delete_category:
               - token: '${token}'
               - category_id: '${category_id}'
           break:

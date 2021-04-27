@@ -7,7 +7,7 @@
 #! @input existing_scenarios_json: List of existing scenarios (for update)
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 flow:
   name: add_or_update_scenario
   inputs:
@@ -28,7 +28,7 @@ flow:
           - FAILURE: on_failure
     - add_scenario:
         do:
-          io.cloudslang.microfocus.rpa.ssx.scenario.add_scenario:
+          io.cloudslang.microfocus.oo.ssx.scenario.add_scenario:
             - token: '${token}'
             - category_id: '${category_id}'
             - scenario_json: '${deprocessed_scenario_json}'
@@ -37,7 +37,7 @@ flow:
           - SUCCESS: SUCCESS
     - update_scenario:
         do:
-          io.cloudslang.microfocus.rpa.ssx.scenario.update_scenario:
+          io.cloudslang.microfocus.oo.ssx.scenario.update_scenario:
             - token: '${token}'
             - scenario_id: '${scenario_id}'
             - category_id: '${category_id}'

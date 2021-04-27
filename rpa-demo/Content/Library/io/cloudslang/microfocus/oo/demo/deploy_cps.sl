@@ -7,7 +7,7 @@
 #! @input last: List of CP names to be deployed as the last ones; do not use brackets, use only CP names (no versions, no spaces); cp1,cp2,cp3
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo
+namespace: io.cloudslang.microfocus.oo.demo
 flow:
   name: deploy_cps
   inputs:
@@ -32,7 +32,7 @@ flow:
         loop:
           for: cp_file in eval(sorted_cps)
           do:
-            io.cloudslang.microfocus.rpa.central.content-pack.import_cp:
+            io.cloudslang.microfocus.oo.central.content-pack.import_cp:
               - cp_file: "${cps_folder+'/'+cp_file}"
           break:
             - FAILURE
@@ -41,7 +41,7 @@ flow:
           - SUCCESS: SUCCESS
     - sort_cps:
         do:
-          io.cloudslang.microfocus.rpa.demo.sub_flows.sort_cps:
+          io.cloudslang.microfocus.oo.demo.sub_flows.sort_cps:
             - cps: '${files}'
             - first: '${first}'
             - last: '${last}'

@@ -6,7 +6,7 @@
 #! @input existing_scenarios_json: List of existing scenarios (for update)
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.microfocus.rpa.demo.sub_flows
+namespace: io.cloudslang.microfocus.oo.demo.sub_flows
 flow:
   name: update_category_scenarios
   inputs:
@@ -30,7 +30,7 @@ flow:
           - FAILURE: on_failure
     - add_category:
         do:
-          io.cloudslang.microfocus.rpa.ssx.category.add_category:
+          io.cloudslang.microfocus.oo.ssx.category.add_category:
             - token: '${token}'
             - category_json: "${str(category_json).replace(\"'__NULL__'\", \"null\").replace(\"'\", '\"')}"
         publish:
@@ -59,7 +59,7 @@ flow:
           - FAILURE: on_failure
     - update_category:
         do:
-          io.cloudslang.microfocus.rpa.ssx.category.update_category:
+          io.cloudslang.microfocus.oo.ssx.category.update_category:
             - token: '${token}'
             - category_id: '${category_id}'
             - category_json: '${deprocessed_category_json}'
@@ -70,7 +70,7 @@ flow:
         loop:
           for: scenario_json in eval(scenarios_json)
           do:
-            io.cloudslang.microfocus.rpa.demo.sub_flows.add_or_update_scenario:
+            io.cloudslang.microfocus.oo.demo.sub_flows.add_or_update_scenario:
               - token: '${token}'
               - category_id: '${category_id}'
               - scenario_json: '${str(scenario_json)}'
