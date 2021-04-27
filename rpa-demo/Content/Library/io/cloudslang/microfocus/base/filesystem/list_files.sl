@@ -9,7 +9,7 @@
 #! @output files: List of files in the directory matching the pattern
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.base.filesystem
+namespace: io.cloudslang.microfocus.base.filesystem
 operation:
   name: list_files
   inputs:
